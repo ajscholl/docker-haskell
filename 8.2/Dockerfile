@@ -1,10 +1,11 @@
 ## Dockerfile for a haskell environment
-FROM       debian:jessie
+FROM       debian:stretch
 
 ## ensure locale is set during build
 ENV LANG            C.UTF-8
 
-RUN echo 'deb http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main' > /etc/apt/sources.list.d/ghc.list && \
+RUN apt-get update && apt-get install -y --no-install-recommends gnupg dirmngr && \
+    echo 'deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main' > /etc/apt/sources.list.d/ghc.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 && \
     apt-get update && \
     apt-get install -y --no-install-recommends cabal-install-2.0 ghc-8.2.2 happy-1.19.5 alex-3.1.7 \
